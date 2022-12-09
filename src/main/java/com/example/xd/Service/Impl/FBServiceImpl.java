@@ -1,5 +1,6 @@
 package com.example.xd.Service.Impl;
 import com.example.xd.DTO.DeviceDTO;
+import com.example.xd.DTO.MarcaPrestamoDTO;
 import com.example.xd.DTO.UserDTO;
 import com.example.xd.Firebase.FirebaseInitializer;
 import com.example.xd.Service.FBService;
@@ -78,6 +79,28 @@ public class FBServiceImpl implements FBService {
             System.out.println(e.getMessage());
             return new ArrayList<String>();
         }
+    }
+
+    public List<MarcaPrestamoDTO> marcaPrestamoList() throws ExecutionException, InterruptedException {
+        List<MarcaPrestamoDTO> marcaPrestamoList = new ArrayList<>();
+        ApiFuture<QuerySnapshot> futureQuery = firebase.getFirestore()
+                .collection("reservas").whereEqualTo("estado", "Solicitud aceptada").get();
+        List<QueryDocumentSnapshot> documents = futureQuery.get().getDocuments();
+        for (DocumentSnapshot document : documents) {
+            String marca = document.getString("device.marca");
+            boolean inList = false;
+            for (MarcaPrestamoDTO marcaPrestamoDTO : marcaPrestamoList) {
+                if (marcaPrestamoDTO.getMarca().equalsIgnoreCase(marca)) {
+                    marcaPrestamoDTO.setPrestamos(marcaPrestamoDTO.getPrestamos() + 1);
+                    inList = true;
+                    break;
+                }
+            }
+            if (!inList) {
+                marcaPrestamoList.add(new MarcaPrestamoDTO(marca, 1));
+            }
+        }
+        return marcaPrestamoList;
     }
 
 

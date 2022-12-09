@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping(value = "")
@@ -49,6 +50,17 @@ public class FBController {
     public HashMap<String, List<String>> marcasList(){
         HashMap<String, List<String>> map = new HashMap<>();
         map.put("marcas",fbService.marcasList());
+        return map;
+    }
+
+    @GetMapping(value = "/marcasPrestamo")
+    public HashMap<String, Object> marcasPrestamoList(){
+        HashMap<String, Object> map = new HashMap<>();
+        try {
+            map.put("reporte",fbService.marcaPrestamoList());
+        } catch (Exception e) {
+            map.put("Status", "error");
+        }
         return map;
     }
 }
