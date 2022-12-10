@@ -1,17 +1,13 @@
 package com.example.xd.Service;
 
-import com.example.xd.DTO.DeviceDTO;
-import com.example.xd.DTO.MarcaPrestamoDTO;
+import com.example.xd.DTO.ReservaDTO;
 import com.example.xd.DTO.UserDTO;
 
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public interface FBService {
-    List<DeviceDTO> devices();
-    UserDTO obtenerCorreo(String correo);
 
-    List<String> marcasList();
+    UserDTO obtenerCorreo(String id) throws ExecutionException, InterruptedException;
 
-    List<MarcaPrestamoDTO> marcaPrestamoList() throws ExecutionException, InterruptedException;
+    ReservaDTO obtenerReserva(String id) throws ExecutionException, InterruptedException;
 }
