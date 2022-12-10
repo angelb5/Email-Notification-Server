@@ -35,7 +35,7 @@ public class EmailService {
                     ")/"+reserva.getLugarRecojo().getLongitude()+","+reserva.getLugarRecojo().getLatitude()+
                     ",16,170,20/750x450?access_token=pk.eyJ1IjoiYW5nZWxiNSIsImEiOiJjbDlyZXdjMmUwaHZkM25xbWRyMXkxYXNoIn0.XFRW7QdnkPbGTSZ0nOBtSw";
             context.setVariable("mapUrl", mapUrl);
-            subject = "Lo sentimos, tu solicitud ha sido rechazada";
+            subject = "Tu solicitud ha sido aprobada";
         }
         String fechaResp = df.format(reserva.getHoraRespuesta().toDate());
         context.setVariable("fechaResp", fechaResp);
